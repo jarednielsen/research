@@ -1,0 +1,4 @@
+embeddings {
+  tensor_name: "Variable:0"
+  metadata_path: "C:\\Users\\T440\\Desktop\\Research\\sentence_encoder/tensorboard/bednar/bednar_sentences_labels.tsv"
+}

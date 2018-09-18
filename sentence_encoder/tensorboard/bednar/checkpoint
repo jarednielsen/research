@@ -1,0 +1,2 @@
+model_checkpoint_path: "C:\\Users\\T440\\Desktop\\Research\\sentence_encoder/tensorboard/bednar\\sentences.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\T440\\Desktop\\Research\\sentence_encoder/tensorboard/bednar\\sentences.ckpt"
