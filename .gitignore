@@ -1,0 +1,6 @@
+data/
+*.gz
+*.ipynb_checkpoints/
+*__pycache__/
+*.vscode/
+*.ckpt*
