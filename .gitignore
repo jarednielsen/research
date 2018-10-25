@@ -1,4 +1,5 @@
 data/
+gan/img_align_celeba/
 *.gz
 *.ipynb_checkpoints/
 *__pycache__/
