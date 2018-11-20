@@ -1,0 +1,818 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{pump-data-v2-cleaned}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Cryogenic Pump Data Analysis v2
+Cleaning}\label{cryogenic-pump-data-analysis-v2-cleaning}
+
+\subsubsection{Jared Nielsen}\label{jared-nielsen}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}
+          \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{scipy}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{import} \PY{n+nn}{sys}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{3}
+          \PY{n}{blue} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}1f77b4}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{precision}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Loading Data}\label{loading-data}
+
+The \texttt{client.csv} files are 1.8GB (14 million rows x 38 cols),
+1.2GB, and a few hundred KB, respectively.\\
+For comparison, \texttt{QSS\ Data\ Share.csv} is 200MB. Pandas crashes
+when I load the files, so we might need a better system.\\
+A 100k-row CSV takes 1.2 seconds, a 1-million row CSV takes 12 seconds
+to load, and it appears to scale linearly.\\
+An out-of-memory error is thrown when loading a 14-million row CSV.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{c+c1}{\PYZsh{} CSVs to load. For simplicity, we will just work with the first one initially. It\PYZsq{}s plenty big.}
+         \PY{n}{filenames} \PY{o}{=} \PY{p}{[}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20180814\PYZus{}102020\PYZus{}DMOS6\PYZus{}0\PYZus{}client.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20180814\PYZus{}102020\PYZus{}DMOS6\PYZus{}0\PYZus{}unit.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20181105\PYZus{}130901\PYZus{}DMOS6\PYZus{}0\PYZus{}client.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20181105\PYZus{}130901\PYZus{}DMOS6\PYZus{}0\PYZus{}unit.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20181105\PYZus{}131740\PYZus{}DMOS6\PYZus{}0\PYZus{}client.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20181105\PYZus{}131740\PYZus{}DMOS6\PYZus{}0\PYZus{}unit.csv}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{]}
+         \PY{n}{folder} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/mnt/pccfs/backed\PYZus{}up/tcs/Archive/}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{url\PYZus{}client} \PY{o}{=} \PY{n}{folder}\PY{o}{+}\PY{n}{filenames}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{url\PYZus{}unit} \PY{o}{=} \PY{n}{folder}\PY{o}{+}\PY{n}{filenames}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Load the key, which maps pump IDs to their type.}
+         \PY{n}{x\PYZus{}unit} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Declare datatypes (strings/floats) for each field in the CSV.}
+         \PY{n}{dtype} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{unitsequence}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{int}\PY{p}{,} \PY{c+c1}{\PYZsh{} ID, negative is test, positive is production}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{uppervalue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} turbo vibrations}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lowervalue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rotorspeed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} turbo speed}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{motortemp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} turbo}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{controllertemp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} turbo}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dcvoltage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} turbo}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{motorcurrent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} turbo}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rotorposition0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,} \PY{c+c1}{\PYZsh{} turbo, positions of the sensors that determine vibration}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rotorposition1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rotorposition2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rotorposition3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rotorposition4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magcurrent0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} turbo balancing factors}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magcurrent1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} 0\PYZhy{}7 should all be symmetrical}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magcurrent2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magcurrent3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magcurrent4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magcurrent5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magcurrent6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magcurrent7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magcurrent8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} last two are on top}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magcurrent9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sumcurrents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} sum of them}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tmsactualtemp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} turbo heating system temperature. \PYZhy{}80 means \PYZdq{}NaN\PYZdq{}}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yh}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,} \PY{c+c1}{\PYZsh{} Alcatel turbo, replacement for `rotorposition0`.}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{z}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{} CRYO fields}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{motorspeed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,} \PY{c+c1}{\PYZsh{} cryos}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temp1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} cryos, target 65}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temp2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} cryos, target 9/11}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{heater1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{heater2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tcpressure}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{float}\PY{p}{,} \PY{c+c1}{\PYZsh{} thermocouple gauge pressure, cryo}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{timestamp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{currentregen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,} \PY{c+c1}{\PYZsh{} letter codes}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{alarmstatusbits}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,} \PY{c+c1}{\PYZsh{} }
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{alertstatusbits}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valvestate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{str}
+         \PY{p}{\PYZcb{}}
+         \PY{n}{parse\PYZus{}dates} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{start} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x\PYZus{}client} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{,} \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{n}{parse\PYZus{}dates}\PY{p}{,} \PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1000000}\PY{p}{)}
+         \PY{n}{x\PYZus{}client}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{x\PYZus{}client}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datetime64[m]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shape:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{x\PYZus{}client}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{elapsed} \PY{o}{=} \PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{)}\PY{o}{.}\PY{n}{total\PYZus{}seconds}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time: }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{elapsed}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Shape: (1000000, 38)
+Time: 12.176
+
+    \end{Verbatim}
+
+    \subsection{Cleaning Data}\label{cleaning-data}
+
+We've already subsampled from milliseconds up to minutes.\\
+Now keep only one sample per minute per pump.\\
+Merge the \texttt{unitsequence} with the \texttt{dsname}, or pump
+type.\\
+Separate into cryos and turbos, and keep only the relevant fields.\\
+Remove duplicate minutes on the same pump (there's too much data here;
+one sample per minute is plenty).\\
+\#\#\# Questions What does \texttt{currentregen} refer to? It takes
+values \texttt{P} and \texttt{V}.\\
+Are the \texttt{magcurrents} worth including in the turbo?\\
+\#\#\# Theories \texttt{heater1} and \texttt{heater2} takes binary
+values, indicating on/off.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{c+c1}{\PYZsh{} TODO: Possibly include rotorspeed in the cryo. It\PYZsq{}s present in some but not all.}
+         \PY{n}{cryo\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unitsequence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{heater1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{heater2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tcpressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{currentregen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{cryo\PYZus{}vals} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{heater1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{heater2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tcpressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} TODO: Possibly include the magcurrents in the turbo.}
+         \PY{n}{turbo\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unitsequence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uppervalue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lowervalue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rotorspeed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{controllertemp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dcvoltage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{motorcurrent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{turbo\PYZus{}vals} \PY{o}{=} \PY{n}{turbo\PYZus{}cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}
+         
+         
+         \PY{k}{def} \PY{n+nf}{clean}\PY{p}{(}\PY{n}{x\PYZus{}unit}\PY{p}{,} \PY{n}{x\PYZus{}client}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x\PYZus{}client\PYZus{}deduplicate} \PY{o}{=} \PY{n}{x\PYZus{}client}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unitsequence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{keep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{first}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}merge} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{x\PYZus{}client\PYZus{}deduplicate}\PY{p}{,} \PY{n}{x\PYZus{}unit}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unitsequence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}cryo} \PY{o}{=} \PY{n}{x\PYZus{}merge}\PY{p}{[}\PY{n}{x\PYZus{}merge}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dsname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CRYO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{cryo\PYZus{}cols}\PY{p}{]}
+             \PY{n}{x\PYZus{}turbo} \PY{o}{=} \PY{n}{x\PYZus{}merge}\PY{p}{[}\PY{n}{x\PYZus{}merge}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dsname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SCU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{turbo\PYZus{}cols}\PY{p}{]}
+             
+             \PY{k}{return} \PY{n}{x\PYZus{}cryo}\PY{p}{,} \PY{n}{x\PYZus{}turbo}
+             
+         \PY{n}{x\PYZus{}cryo}\PY{p}{,} \PY{n}{x\PYZus{}turbo} \PY{o}{=} \PY{n}{clean}\PY{p}{(}\PY{n}{x\PYZus{}unit}\PY{p}{,} \PY{n}{x\PYZus{}client}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Cleaned Cryo Data}\label{cleaned-cryo-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x\PYZus{}cryo: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{x\PYZus{}cryo}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dtypes: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{x\PYZus{}cryo}\PY{o}{.}\PY{n}{dtypes}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x\PYZus{}cryo}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x\_cryo: (140234, 8)
+dtypes: unitsequence             int64
+timestamp       datetime64[ns]
+temp1                  float64
+temp2                  float64
+heater1                float64
+heater2                float64
+tcpressure             float64
+currentregen            object
+dtype: object
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:}       unitsequence           timestamp  temp1  temp2  heater1  heater2  \textbackslash{}
+         2824      17798282 2018-04-10 14:57:00   65.0   12.2      1.0      0.0   
+         2825      17798282 2018-04-10 14:58:00   65.0   12.1      1.0      0.0   
+         2826      17798282 2018-04-10 14:59:00   65.0   12.2      1.0      0.0   
+         2827      17798282 2018-04-10 15:00:00   64.9   12.2      1.0      0.0   
+         2828      17798282 2018-04-10 15:01:00   64.9   12.1      1.0      0.0   
+         
+               tcpressure currentregen  
+         2824         0.5            P  
+         2825         0.5            P  
+         2826         0.5            P  
+         2827         0.5            P  
+         2828         0.5            P  
+\end{Verbatim}
+            
+    \subsection{Cleaned Turbo Data}\label{cleaned-turbo-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x\PYZus{}turbo: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{x\PYZus{}turbo}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dtypes: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{x\PYZus{}turbo}\PY{o}{.}\PY{n}{dtypes}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x\PYZus{}turbo}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x\_turbo: (28510, 8)
+dtypes: unitsequence               int64
+timestamp         datetime64[ns]
+uppervalue               float64
+lowervalue               float64
+rotorspeed               float64
+controllertemp           float64
+dcvoltage                float64
+motorcurrent             float64
+dtype: object
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}96}]:}    unitsequence           timestamp  uppervalue  lowervalue  rotorspeed  \textbackslash{}
+         0      16775261 2018-04-10 14:57:00         2.0        13.0       545.0   
+         1      16775261 2018-04-10 14:58:00         2.0        13.0       545.0   
+         2      16775261 2018-04-10 14:59:00         2.0        13.0       545.0   
+         3      16775261 2018-04-10 15:00:00         2.0        13.0       545.0   
+         4      16775261 2018-04-10 15:01:00         2.0        13.0       545.0   
+         
+            controllertemp  dcvoltage  motorcurrent  
+         0           147.0      122.0           0.4  
+         1           147.0      122.0           0.5  
+         2           147.0      122.0           0.5  
+         3           147.0      122.0           0.5  
+         4           147.0      122.0           0.5  
+\end{Verbatim}
+            
+    \subsection{Pump Grouping, Interval
+Segmentation}\label{pump-grouping-interval-segmentation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}unitsequences}\PY{p}{(}\PY{n}{x\PYZus{}subset}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{x\PYZus{}subset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unitsequence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{get\PYZus{}pump}\PY{p}{(}\PY{n}{x\PYZus{}subset}\PY{p}{,} \PY{n}{unitsequence}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{x\PYZus{}subset}\PY{p}{[}\PY{n}{x\PYZus{}subset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unitsequence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{unitsequence}\PY{p}{]}
+          
+          \PY{k}{def} \PY{n+nf}{get\PYZus{}intervals}\PY{p}{(}\PY{n}{x\PYZus{}pump}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    Parameters:}
+          \PY{l+s+sd}{        x\PYZus{}pump (DataFrame): output of get\PYZus{}pump().}
+          \PY{l+s+sd}{    Returns:}
+          \PY{l+s+sd}{        intervals (list(DataFrame)): the DataFrame intervals, ordered by time.}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{x\PYZus{}pump\PYZus{}sorted} \PY{o}{=} \PY{n}{x\PYZus{}pump}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{timestamp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+              \PY{n}{interval\PYZus{}desc} \PY{o}{=} \PY{p}{(}\PY{n}{x\PYZus{}pump\PYZus{}sorted}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{timestamp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{pd}\PY{o}{.}\PY{n}{Timedelta}\PY{p}{(}\PY{n}{minutes}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}
+              \PY{n}{intervals} \PY{o}{=} \PY{p}{[}\PY{n}{v} \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{x\PYZus{}pump\PYZus{}sorted}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{interval\PYZus{}desc}\PY{p}{)}\PY{p}{]}
+              \PY{k}{return} \PY{n}{intervals}
+          
+          \PY{k}{def} \PY{n+nf}{plot\PYZus{}interval}\PY{p}{(}\PY{n}{interval}\PY{p}{,} \PY{n}{val\PYZus{}names}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+              \PY{n}{interval}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{val\PYZus{}names}\PY{p}{,}
+                          \PY{n}{subplots}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{blue}\PY{p}{,}
+                          \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+              \PY{k}{if} \PY{n}{title}\PY{p}{:}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Here we see that cryos give virtually no useful data for
+prediction.}\label{here-we-see-that-cryos-give-virtually-no-useful-data-for-prediction.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{i\PYZus{}cryo} \PY{o}{=} \PY{l+m+mi}{1}
+          \PY{n}{unitsequence} \PY{o}{=} \PY{n}{get\PYZus{}unitsequences}\PY{p}{(}\PY{n}{x\PYZus{}cryo}\PY{p}{)}\PY{p}{[}\PY{n}{i\PYZus{}cryo}\PY{p}{]}
+          \PY{n}{x\PYZus{}pump} \PY{o}{=} \PY{n}{get\PYZus{}pump}\PY{p}{(}\PY{n}{x\PYZus{}cryo}\PY{p}{,} \PY{n}{unitsequence}\PY{p}{)}
+          \PY{n}{intervals} \PY{o}{=} \PY{n}{get\PYZus{}intervals}\PY{p}{(}\PY{n}{x\PYZus{}pump}\PY{p}{)}
+          \PY{n}{interval} \PY{o}{=} \PY{n}{intervals}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{plot\PYZus{}interval}\PY{p}{(}\PY{n}{interval}\PY{p}{,} \PY{n}{cryo\PYZus{}vals}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cryo }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i\PYZus{}cryo}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Let's try turbos.}\label{lets-try-turbos.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{i\PYZus{}turbo} \PY{o}{=} \PY{l+m+mi}{1}
+          \PY{n}{unitsequence} \PY{o}{=} \PY{n}{get\PYZus{}unitsequences}\PY{p}{(}\PY{n}{x\PYZus{}turbo}\PY{p}{)}\PY{p}{[}\PY{n}{i\PYZus{}turbo}\PY{p}{]}
+          \PY{n}{x\PYZus{}pump} \PY{o}{=} \PY{n}{get\PYZus{}pump}\PY{p}{(}\PY{n}{x\PYZus{}turbo}\PY{p}{,} \PY{n}{unitsequence}\PY{p}{)}
+          \PY{n}{intervals} \PY{o}{=} \PY{n}{get\PYZus{}intervals}\PY{p}{(}\PY{n}{x\PYZus{}pump}\PY{p}{)}
+          \PY{n}{interval} \PY{o}{=} \PY{n}{intervals}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{There are }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ intervals}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{intervals}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plot\PYZus{}interval}\PY{p}{(}\PY{n}{interval}\PY{p}{,} \PY{n}{turbo\PYZus{}vals}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Turbo }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i\PYZus{}turbo}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 2 intervals
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Big Picture}\label{big-picture}
+
+So far our results have been uninteresting.\\
+Let's pick the turbo pump that has the longest-running interval and
+analyze it.\\
+Try \texttt{unitsequence\ =\ 167757766}. This has \texttt{1,048,132}
+elements.
+
+So there are correlations going on, though they're extremely obvious.
+Motor speed corresponds with motor temperature - who knew? There's a lot
+of feature engineering to be done here, but the data is clean and ready.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}over\PYZus{}time}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{desc}\PY{p}{)}\PY{p}{:}
+             \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{n}{desc}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{desc}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{time\PYZus{}slice}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{:}
+             \PY{n}{dt1} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2018\PYZhy{}05\PYZhy{}01 00:00:00}\PY{l+s+s1}{\PYZsq{}}
+         \PY{c+c1}{\PYZsh{}     dt2 = \PYZsq{}2018\PYZhy{}06\PYZhy{}27 06:00:00\PYZsq{}}
+             \PY{n}{ms} \PY{o}{=} \PY{n}{m}\PY{p}{[}\PY{p}{(}\PY{n}{dt1} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{m}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{}\PYZam{} (m[\PYZsq{}timestamp\PYZsq{}] \PYZlt{} dt2)]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ms:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{.}\PY{n}{shape}\PY{p}{)}  
+             \PY{k}{return} \PY{n}{ms}
+             
+         \PY{n}{n\PYZus{}timesteps}\PY{p}{,} \PY{n}{n\PYZus{}cols} \PY{o}{=} \PY{n}{m}\PY{o}{.}\PY{n}{shape}
+         \PY{n}{ms} \PY{o}{=} \PY{n}{time\PYZus{}slice}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         \PY{n}{t} \PY{o}{=} \PY{n}{m}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{timestamp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{uppervalue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lowervalue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rotorspeed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{motortemp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{controllertemp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dcvoltage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{motorcurrent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{cols}\PY{p}{:}
+             \PY{n}{plot\PYZus{}over\PYZus{}time}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{m}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,}\PY{n}{col}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ms: (266806, 38)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-}\label{section}
+
+Below this point are personal notes/scratch code. Feel free to stop
+here.
+
+    \subsection{\texorpdfstring{Extract Dense Time Clusters for a Single
+\texttt{unitsequence}}{Extract Dense Time Clusters for a Single unitsequence}}\label{extract-dense-time-clusters-for-a-single-unitsequence}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}clusters}\PY{p}{(}\PY{n}{unit\PYZus{}sequence\PYZus{}id}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Parameters:}
+         \PY{l+s+sd}{        unit\PYZus{}sequence\PYZus{}id (int): the id of the pump (fx \PYZhy{}18202).}
+         \PY{l+s+sd}{        \PYZsh{} col\PYZus{}name (str): the column to extract data for (fx \PYZdq{}controllertemp\PYZdq{})}
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        clusters (list(DataFrame)): the DataFrame clusters, ordered by time.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{dfc} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{unitsequence}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{unit\PYZus{}sequence\PYZus{}id}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{timestamp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{cluster} \PY{o}{=} \PY{p}{(}\PY{n}{dfc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{timestamp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{pd}\PY{o}{.}\PY{n}{Timedelta}\PY{p}{(}\PY{n}{minutes}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{dfc} \PY{o}{=} \PY{p}{[}\PY{n}{v} \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{dfc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{cluster}\PY{p}{)}\PY{p}{]}
+             \PY{k}{return} \PY{n}{dfc}
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}cluster}\PY{p}{(}\PY{n}{cluster}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{col\PYZus{}names}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rotorspeed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{motortemp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{controllertemp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dcvoltage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{cluster}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{col\PYZus{}names}\PY{p}{,}
+                         \PY{n}{subplots}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{blue}\PY{p}{,}
+                         \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{if} \PY{n}{title}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}cluster\PYZus{}magnets}\PY{p}{(}\PY{n}{cluster}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+             \PY{n}{magcurrents} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magcurrent}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{]}
+             \PY{n}{cluster}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{magcurrents}\PY{p}{,}
+                         \PY{n}{subplots}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{blue}\PY{p}{,}
+                         \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+             \PY{k}{if} \PY{n}{title}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{clusters} \PY{o}{=} \PY{n}{get\PYZus{}clusters}\PY{p}{(}\PY{n}{us}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{All the clusters for unit\PYZus{}sequence }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{us}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No. Clusters:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{clusters}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{First Cluster}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{cluster} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{clusters}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plot\PYZus{}cluster}\PY{p}{(}\PY{n}{cluster}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cluster }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     plot\PYZus{}cluster(cluster, title=\PYZdq{}Cluster \PYZob{}\PYZcb{}\PYZdq{}.format(i+1), col\PYZus{}names=[\PYZdq{}temp1\PYZdq{}, \PYZdq{}temp2\PYZdq{}, \PYZdq{}heater1\PYZdq{}, \PYZdq{}heater2\PYZdq{}])}
+         \PY{c+c1}{\PYZsh{}     if i == 1:}
+         \PY{c+c1}{\PYZsh{}         break}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+All the clusters for unit\_sequence 16775766
+No. Clusters: 5
+First Cluster
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Questions}\label{questions}
+
+Why aren't we seeing ramp-down speed?\\
+How do I plot dates, not just timesteps?\\
+Can I segment sections with only positive slope/negative slope?\\
+Does the OLS slope give information about pump health?
+
+    \subsection{Notes}\label{notes}
+
+CRYO refers to cryogenic.\\
+SRU refers to turbo -
+\href{https://www.labx.com/item/sru-biosystems-bind-reader-turbo-plate-reader/LV39187140}{SRU
+Biosystems BIND Reader TURBO Plate Reader}.
+
+Sample CRYO (us \texttt{17338484}) has \texttt{rotorspeed},
+\texttt{temp1}, \texttt{temp2}, \texttt{heater1}, \texttt{heater2},
+\texttt{tcpressure}, \texttt{timestamp}, \texttt{currentregen}.\\
+Sample SCU (us \texttt{16776830}) has \texttt{uppervalue},
+\texttt{lowervalue}, \texttt{rotorspeed}, \texttt{controllertemp},
+\texttt{dcvoltage}, \texttt{motorcurrent}, \texttt{timestamp}.\\
+Another sample CRYO (us \texttt{16775258}) is missing
+\texttt{rotorspeed}.
+
+Single \texttt{listenerid} for everything.\\
+Same \texttt{groupname} - IM1004.
+
+\texttt{motorspeed} is NaN for everything (even cryos), contrary to what
+TCS said.\\
+\texttt{rotospeed} is defined for cryos, though TCS said it's only
+turbo.
+
+\texttt{currentregen} is either \texttt{P} or \texttt{V} for cryos -
+what does this mean?
+
+    \subsection{Data Cleaning}\label{data-cleaning}
+
+NaN values in
+\texttt{x\_unit{[}\textquotesingle{}outofservice\textquotesingle{}{]}}.\\
+Evaluate only cryos, or only sru. Then we can get rid of NaN values.\\
+Subsample to the second.\\
+Merge into a single table, remove the NaNs, label with "Turbo" or
+"Cryo".
+
+    \subsection{Planning Success}\label{planning-success}
+
+(from the
+\emph{\href{https://www.deeplearningbook.org/contents/guidelines.html}{Deep
+Learning Book}})\\
+\textbf{Determine your goals. What error metric will you use? What
+target value for this error metric?}\\
+- Cluster similarity - given values, can we group clusters by pump? -
+Predicting pump failure (but we don't have failure data!) -
+
+\textbf{Establish a working end-to-end pipeline as soon as possible,
+including estimation of possible performance metrics.}
+
+\textbf{Instrument the system well to determine bottlenecks in
+performance. Determine which componenents are performing worse than
+expected, and whether the poor performance is due to underfitting,
+overfitting, or software defects.}
+
+\textbf{Repeatedly make incremental changes such as gathering new data,
+adjusting hyperparameters, or changing algorithms, based on specific
+findings from your instrumentation.}
+
+\textbf{Which features will I use?}\\
+- Correlation matrices (fx motor speed vs motor current), r-squared
+values. - DTW distance. - Slope of motor rampup/cooldown speed.
+
+\textbf{Which algorithms will I use?} - Decision Tree/Random
+Forest/XGBoost (not a clustering algorithm!) - K-means on various
+feature subsets - Hierarchical clustering - Expectation Maximization on
+Gaussian Mixture Models - Gaussian Process Regression
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
