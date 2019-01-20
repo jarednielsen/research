@@ -1,5 +1,6 @@
-data/
+*data/
 gan/img_align_celeba/
+*MNIST_data/
 *.gz
 *.ipynb_checkpoints/
 *__pycache__/
