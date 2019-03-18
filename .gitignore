@@ -9,3 +9,5 @@ gan/img_align_celeba/
 *.ckpt*
 *.params
 *.csv
+semi_supervised/experiments*
+hyperopt_and_mag/experiments*
